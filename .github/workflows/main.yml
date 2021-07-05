@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: GCP Pipeline
+name: testrunner
 
 on:
   push:
@@ -14,7 +14,8 @@ env:
   USERS_SERVICE_URL: http://users-service:3000
   MOVIES_SERVICE_URL: http://movies-service:3000
   OMDB_API_KEY: a69b8c8f
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+
+
 
 jobs:
   build:
@@ -39,37 +40,5 @@ jobs:
     #- name: Run containers 
     #  run: sudo docker-compose up -d
 
-    - name: Docker refresh containers
-      run: sudo docker restart $(sudo docker ps -q)
-
-    #- name: Run tests 
-    #  run: |
-    #    cd ./wdio-omdb-automation
-    #    docker-compose run --rm wdio conf/chrome.docker.js
-    
-#     - name: Authenticate into Google Cloud Platform
-#       uses: google-github-actions/setup-gcloud@master
-#       with:
-#         service_account_email: ${{ secrets.GCLOUD_EMAIL }}
-#         service_account_key: ${{ secrets.GCLOUD_KEY }}
-
-#     - name: Configure Docker to use Google Cloud Platform
-#       run: "gcloud auth configure-docker --quiet"
-
-#     - name: Tag Images
-#       run: |
-#         docker tag googlecloudpipeline_web-service:latest "gcr.io/$PROJECT_ID/web-service:$GITHUB_SHA"
-#         docker tag googlecloudpipeline_users-service:latest "gcr.io/$PROJECT_ID/users-service:$GITHUB_SHA"
-#         docker tag googlecloudpipeline_movies-service:latest "gcr.io/$PROJECT_ID/movies-service:$GITHUB_SHA"
-#         docker tag googlecloudpipeline_users-db:latest "gcr.io/$PROJECT_ID/users-db:$GITHUB_SHA"
-#         docker tag googlecloudpipeline_movies-db:latest "gcr.io/$PROJECT_ID/movies-db:$GITHUB_SHA"
-
-
-    # Push the Docker image to Google Container Registry
-#     - name: Publish Images to GCP Container Registry
-#       run: |
-#         docker push gcr.io/$PROJECT_ID/web-service:$GITHUB_SHA
-#         docker push gcr.io/$PROJECT_ID/users-service:$GITHUB_SHA
-#         docker push gcr.io/$PROJECT_ID/movies-service:$GITHUB_SHA
-#         docker push gcr.io/$PROJECT_ID/users-db:$GITHUB_SHA
-#         docker push gcr.io/$PROJECT_ID/movies-db:$GITHUB_SHA
+    #- name: Docker refresh containers
+    #  run: sudo docker restart $(sudo docker ps -q)
